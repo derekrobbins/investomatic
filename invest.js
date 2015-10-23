@@ -7,7 +7,6 @@ App = (function() {
         propertiesOwned = [];
 
     function init() {
-        console.log('init');
         bank = vars.initial;
 
         // wild ass guess
@@ -37,6 +36,7 @@ App = (function() {
             income = 0;
             taxableIncome = 0;
             totalInterestPaid = 0;
+            //console.log(bank);
 
             // first pay off any liabilities
             bank = bank - monthlyCostOwned * propertiesOwned.length;
@@ -46,7 +46,7 @@ App = (function() {
                 payment = mortgage.makePayment();
                 totalInterestPaid += payment.interest;
                 income += payment.refund;
-                if(payment.refund) {
+                if(payment.paidOff) {
                     propertiesOwned.push(propertiesWithMortgages.splice(j, 1));
                 }
             }
@@ -63,8 +63,6 @@ App = (function() {
                 buyProperty()
             }
         }
-        console.log('bank: ', bank);
-        console.log('income: ' + (totalInterestPaid + taxableIncome * (1 - vars.incometax / 100)));
         var equity = propertiesOwned.length * vars.price;
         for(j = 0; j < propertiesWithMortgages.length; j++) {
             equity = equity + vars.price - propertiesWithMortgages[j].principal;
@@ -130,17 +128,20 @@ App = (function() {
         var interest = this.principal * this.options.interestRate;
         var payDown = this.c - interest;
         var refund = 0;
+        var paidOff;
         this.payments++;
         if(this.principal <= payDown) {
             refund = payDown - this.principal;
             this.principal = 0;
+            paidOff = true;
             console.log('payed off!!! in ' + (this.payments / 12) + ' years');
         } else {
             this.principal -= payDown;
         }
         return {
             interest: interest,
-            refund: refund
+            refund: refund,
+            paidOff: paidOff
         };
     }
     Property.prototype.getEquityAtEndOfMonth = function(month) {
