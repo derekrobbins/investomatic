@@ -1,23 +1,77 @@
 <head>
     <style>
+        body {
+            margin: 0;
+            padding: 16px;
+            background-color: hsl(0, 10%, 50%);
+            color: hsl(200, 30%, 10%);
+        }
+        h1, h2 {
+            font-family: helvetica;
+            font-weight: normal;
+            padding: 0;
+            margin: 0 0 16px 0;
+        }
         input, label {
             display: block;
+            font-size: 16px;
+            font-family: helvetica;
+        }
+        label {
+            margin-bottom: 4px;
         }
         input {
-            margin-bottom: 15px;
+            padding: 8px;
+            margin-bottom: 24px;
+            border: 1px solid hsl(0, 10%, 45%);
+            background: hsl(0, 10%, 55%);
+            box-sizing: border-box;
+            width: 100%;
+        }
+        .category {
+            width: 33.33%;
+            box-sizing: border-box;
+            float: left;
+            padding: 16px;
         }
     </style>
 </head>
 <body>
-    <label for="initial">Initial Investment:</label>
-    <input id="initial" value="100000" />
-    <label for="rent-to-price">Rent to price ratio:</label>
-    <input id="rent-to-price" value="0.8" />
-    <label for="down-payment">Average down payment (percent):</label>
-    <input id="down-payment" value="25" />
-    <label for="price">Average Price:</label>
-    <input id="price" />
-    <label for="years">Number of years:</label>
-    <input id="years" value="20" />
+    <div class="category">
+        <h2>General</h2>
+        <label for="initial">Initial Investment:</label>
+        <input id="initial" value="100000" />
+        <label for="external">External monthly investment:</label>
+        <input id="external" value="2000" />
+        <label for="rent-to-price">Rent to price ratio:</label>
+        <input id="rent-to-price" value="0.008" />
+        <label for="down-payment">Average down payment (percent):</label>
+        <input id="down-payment" value="25" />
+        <label for="price">Average Price:</label>
+        <input id="price" value="150000"/>
+        <label for="years">Number of years:</label>
+        <input id="years" value="20" />
+        <label for="incometax">Income tax rate (percent):</label>
+        <input id="incometax" value="50" />
+    </div>
+    <div class="category">
+        <h2>Loan</h2>
+        <label for="interest">Interest rate:</label>
+        <input id="interest" value="4" />
+        <label for="term">Loan term:</label>
+        <input id="term" value="15" />
+    </div>
+    <div class="category">
+        <h2>Home costs</h2>
+        <label for="pm">Property manager:</label>
+        <input id="pm" value="100" />
+        <label for="vacancy">Vacancy rate (percent):</label>
+        <input id="vacancy" value="10" />
+        <label for="tax">Property tax rate:</label>
+        <input id="tax" value="1.125" />
+        <label for="hoi">Homeowners insurance (per year):</label>
+        <input id="hoi" value="800" />
+    </div>
+    <button id="recalculate">Recalculate</button>
     <script src="invest.js"></script>
 </body>
