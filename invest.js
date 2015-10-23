@@ -65,9 +65,14 @@ App = (function() {
         }
         console.log('bank: ', bank);
         console.log('income: ' + (totalInterestPaid + taxableIncome * (1 - vars.incometax / 100)));
+        var equity = propertiesOwned.length * vars.price;
+        for(j = 0; j < propertiesWithMortgages.length; j++) {
+            equity = equity + vars.price - propertiesWithMortgages[j].principal;
+        }
+        console.log('equity: ' + equity);
     }
-    function buyProperty() {
-        propertiesWithMortgages.push(new Property());
+    function buyProperty(options) {
+        propertiesWithMortgages.push(new Property(options));
         bank = bank - costToBuy;
     }
     function initVars() {
@@ -161,6 +166,10 @@ App = (function() {
     init();
     document.getElementById('recalculate').onclick = init;
     return {
-        Property: Property
+        Property: Property,
+        properties: {
+            propertiesOwned: propertiesOwned,
+            propertiesWithMortgages: propertiesWithMortgages
+        }
     };
 })();
